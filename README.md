@@ -35,6 +35,8 @@ A few years ago, I made a [weather dashboard](https://github.com/Mo2207/Weather-
 - [OpenWeather API](https://openweathermap.org/api)
 - [Expo Location](https://docs.expo.dev/versions/latest/sdk/location/)
 
-## Deployed Application
+## 📱 Deployed Application
 
-- WIP 🚧
+You can try out the app instantly using the QR code below in the [Expo Go app](https://expo.dev/go):
+
+<img src="/assets/images/expo-weather-dashboard-QR.png" alt="QR Code for Expo Weather Dashboard" width="200" />

@@ -6,7 +6,6 @@ import { useLocation } from '../../hooks/useLocation';
 import { getWeather } from '../../utils/getWeather';
 import CurrentWeatherCard from "../../components/currentWeatherCard";
 import { useState, useEffect } from 'react';
-import { Image } from "react-native";
 import { ImageBackground } from "react-native";
 
 export default function Home() {

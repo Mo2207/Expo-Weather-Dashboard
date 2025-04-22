@@ -39,4 +39,4 @@ A few years ago, I made a [weather dashboard](https://github.com/Mo2207/Weather-
 
 You can try out the app instantly using the QR code below in the [Expo Go app](https://expo.dev/go):
 
-<img src="/assets/images/expo-weather-dashboard-QR.png" alt="QR Code for Expo Weather Dashboard" width="200" />
+<img src="/assets/images/eas-QR.svg" alt="QR Code for Expo Weather Dashboard" width="200" />

@@ -15,7 +15,7 @@ type ForecastProps = {
 export default function ForecastCard({ name, day, date, icon, temp, description, rain, snow }: ForecastProps) {
   return (
     <View
-      className="flex items-center flex-col bg-white rounded-lg shadow-xl shadow-black p-4 max-w-[90vw] mt-2"
+      className="flex items-center flex-col bg-white rounded-lg shadow-sm shadow-black p-4 max-w-[90vw] my-1"
     >
 
       {/* day and date */}
@@ -24,7 +24,7 @@ export default function ForecastCard({ name, day, date, icon, temp, description,
       <View className="flex flex-row items-center gap-10">
 
         {/* temperature and precipitation */}
-        <View className='flex flex-col gap-4 items-center'>
+        <View className='flex flex-col gap-4 items-center h-12'>
           <Text className='font-semibold text-lg'>🌡️ {temp}°C </Text>
           <View>
             {rain && (
@@ -38,7 +38,7 @@ export default function ForecastCard({ name, day, date, icon, temp, description,
               </Text>
             )}
             {!snow && !rain && (
-              <Text className="font-semibold text-md">
+              <Text className="font-semibold text-md mt-1">
                 No precipitation
               </Text>
             )}

@@ -1,14 +1,24 @@
 
 import { View, Text, ActivityIndicator, ImageBackground } from 'react-native';
 import { useLocation } from '../../hooks/useLocation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { getForecast } from '@/utils/getForecast';
 import ForecastCard from '../../components/forecastCard';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from 'expo-router';
 
 export default function FiveDayForecast() {
   const { location, errorMsg } = useLocation();
   const [forecast, setForecast] = useState<any>(null);
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    if (forecast?.name) {
+      navigation.setOptions({
+        title: `5 Day Forecast for ${forecast.name}`
+      })
+    }
+  }, [forecast]);
 
   useEffect(() => {
     if (!location) return;
@@ -29,13 +39,21 @@ export default function FiveDayForecast() {
       resizeMode="cover"
     >
       <View className="flex flex-col items-center justify-center bg-white/50">
+        
         {/* show error if location was denied */}
         {errorMsg && <Text className='text-red-500'>{errorMsg}</Text>}
 
         {/* show location or loading */}
         {location ? (
           forecast ? (
-            <ScrollView showsVerticalScrollIndicator={false} className="w-full px-6" >
+            <ScrollView 
+              showsVerticalScrollIndicator={false} 
+              className="w-full px-6"
+              contentContainerStyle={{
+                paddingVertical: 8,
+                paddingBottom: 8,
+              }}
+            >
                 {forecast.forecast.map((day: any, i: number) => (
                   <ForecastCard
                     key={i}

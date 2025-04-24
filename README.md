@@ -21,6 +21,13 @@ A few years ago, I made a [weather dashboard](https://github.com/Mo2207/Weather-
   - Weather condition icon + description
   - Rain/snow (if any)
   - Min/max temperature and humidity
+- 🗓️ **5-Day Forecast**
+  - View upcoming weather conditions for the next 5 days
+  - Includes temperature trends and weather descriptions for each day
+- 🌙 **Dark Mode Toggle**
+  - Easily switch between light and dark themes
+  - Dynamically updates background, text, and card colors based on the selected theme
+  - Theme state is globally managed with React Context for a consistent experience across screens
 - 🎨 Clean, mobile-friendly UI with Tailwind + NativeWind
 - ⚙️ Fully written in TypeScript
 

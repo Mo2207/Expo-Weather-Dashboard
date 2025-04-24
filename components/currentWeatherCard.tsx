@@ -1,5 +1,7 @@
 
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
+import ThemedText from "../components/themedText";
+import { useTheme } from "../context/themeContext";
 
 type WeatherProps = {
   name: string;
@@ -14,17 +16,20 @@ type WeatherProps = {
 }
 
 export default function CurrentWeatherCard({ name, icon, description, temp, humidity, temp_min, temp_max, rain, snow }: WeatherProps) {
+  const { colors } = useTheme();
+
   return (
     <View
-      className="flex items-center flex-col bg-white rounded-lg shadow-xl shadow-black p-6 gap-2 max-w-[90vw]"
+      className="flex items-center flex-col rounded-lg shadow-xl shadow-black p-6 gap-2 max-w-[90vw]"
+      style={{ backgroundColor: colors.background }}
     >
-      <Text className='font-semibold text-lg'>Current forecast for {name}</Text>
+      <ThemedText className='font-semibold text-lg'>Current forecast for {name}</ThemedText>
       <View className="flex flex-row items-center">
         <Image
           source={{ uri: `https://openweathermap.org/img/wn/${icon}@2x.png` || '' }}
           style={{ width: 64, height: 64 }}
         />
-        <Text className='font-semibold text-lg'>{description}</Text>
+        <ThemedText className='font-semibold text-lg'>{description}</ThemedText>
       </View>
 
       {/* precipitation & temperature row */}
@@ -32,27 +37,27 @@ export default function CurrentWeatherCard({ name, icon, description, temp, humi
         {/* precipitation col */}
         <View>
           {rain && (
-            <Text className="font-semibold text-lg">
+            <ThemedText className="font-semibold text-lg">
               🌧️ ~{rain.toFixed(1)}mm
-            </Text>
+            </ThemedText>
           )}
           {snow && (
-            <Text className="font-semibold text-lg">
+            <ThemedText className="font-semibold text-lg">
               🌨️ ~{snow.toFixed(1)}mm
-            </Text>
+            </ThemedText>
           )}
           {!snow && !rain && (
-            <Text className="font-semibold text-md">
+            <ThemedText className="font-semibold text-md">
               No current{'\n'}precipitation
-            </Text>
+            </ThemedText>
           )}
         </View>
       {/* temperature col */}
       <View className='flex flex-row gap-4 items-center'>
-        <Text className='font-semibold text-lg'>🌡️ {temp}°C</Text>
+        <ThemedText className='font-semibold text-lg'>🌡️ {temp}°C</ThemedText>
         <View className='flex flex-col items-start'>
-          <Text className='font-semibold text-sm'>min {temp_min}°C</Text>
-          <Text className='font-semibold text-sm'>max {temp_max}°C</Text>
+          <ThemedText className='font-semibold text-sm'>min {temp_min}°C</ThemedText>
+          <ThemedText className='font-semibold text-sm'>max {temp_max}°C</ThemedText>
         </View>
       </View>
       </View>

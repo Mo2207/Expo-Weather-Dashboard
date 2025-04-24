@@ -1,25 +1,30 @@
 
-import { View, Text, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, ActivityIndicator, ImageBackground } from 'react-native';
+import ThemedText from '../../components/themedText';
 import { useLocation } from '../../hooks/useLocation';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { getForecast } from '@/utils/getForecast';
 import ForecastCard from '../../components/forecastCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from 'expo-router';
+import { useTheme } from '../../context/themeContext';
 
 export default function FiveDayForecast() {
+  const { colors } = useTheme();
   const { location, errorMsg } = useLocation();
   const [forecast, setForecast] = useState<any>(null);
   const navigation = useNavigation();
 
+  // change menu title dynamically
   useLayoutEffect(() => {
     if (forecast?.name) {
       navigation.setOptions({
         title: `5 Day Forecast for ${forecast.name}`
       })
     }
-  }, [forecast]);
+  }, [forecast]); // run whenever forecast changes
 
+  // set forecast based on location
   useEffect(() => {
     if (!location) return;
 
@@ -30,7 +35,7 @@ export default function FiveDayForecast() {
         setForecast
       )
       .catch((err) => console.log('❌ Failed to set forecast:', err));
-  }, [location])
+  }, [location]) // run whenever location changes
 
   return (
     <ImageBackground
@@ -38,10 +43,10 @@ export default function FiveDayForecast() {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <View className="flex flex-col items-center justify-center bg-white/50">
+      <View className="flex flex-col items-center justify-center h-full" style={{ backgroundColor: colors.image }}>
         
         {/* show error if location was denied */}
-        {errorMsg && <Text className='text-red-500'>{errorMsg}</Text>}
+        {errorMsg && <ThemedText>{errorMsg}</ThemedText>}
 
         {/* show location or loading */}
         {location ? (
@@ -69,15 +74,15 @@ export default function FiveDayForecast() {
                 ))}
             </ScrollView>
           ) : (
-            <Text>Loading forecast...</Text>
+            <ThemedText>Loading forecast...</ThemedText>
           )
         ) : (
                 !errorMsg && 
                 <View className="flex flex-col">
-                  <ActivityIndicator size="large" color="#1e3a8a" />
-                  <Text className="font-bold text-xl animate-pulse mt-4">
+                  <ActivityIndicator size="large" color={colors.text} />
+                  <ThemedText className="font-bold text-xl animate-pulse mt-4">
                     Fetching weather data...
-                  </Text>
+                  </ThemedText>
                 </View>
               )}
       

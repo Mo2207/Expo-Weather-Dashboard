@@ -4,16 +4,17 @@ import { useTheme } from '../context/themeContext';
 
 
 type ThemedSwitchProps = {
+  value: boolean;
   onToggle: () => void;
 };
 
-export default function ThemedSwitch({ onToggle } : ThemedSwitchProps) {
+export default function ThemedSwitch({ value, onToggle } : ThemedSwitchProps) {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
 
   return (
     <Switch
-      value={isDarkMode}
+      value={value}
       onValueChange={onToggle}
       thumbColor={isDarkMode ? '#6b7280' : '#ffffff'}
       trackColor={{

@@ -2,21 +2,23 @@
 import { View, Image } from 'react-native';
 import ThemedText from "../components/themedText";
 import { useTheme } from "../context/themeContext";
+import { useUnit } from '../context/unitContext';
 
 type WeatherProps = {
   name: string;
   icon: string;
   description: string;
   temp: number;
-  humidity: number;
   temp_min: number;
   temp_max: number;
   rain: number;
   snow: number;
 }
 
-export default function CurrentWeatherCard({ name, icon, description, temp, humidity, temp_min, temp_max, rain, snow }: WeatherProps) {
+export default function CurrentWeatherCard({ name, icon, description, temp, temp_min, temp_max, rain, snow }: WeatherProps) {
   const { colors } = useTheme();
+  const { unit } = useUnit();
+  const unitSymbol = unit === 'metric' ? '°C' : '°F';
 
   return (
     <View
@@ -54,10 +56,10 @@ export default function CurrentWeatherCard({ name, icon, description, temp, humi
         </View>
       {/* temperature col */}
       <View className='flex flex-row gap-4 items-center'>
-        <ThemedText className='font-semibold text-lg'>🌡️ {temp}°C</ThemedText>
+        <ThemedText className='font-semibold text-lg'>🌡️ {Math.round(temp)}{unitSymbol}</ThemedText>
         <View className='flex flex-col items-start'>
-          <ThemedText className='font-semibold text-sm'>min {temp_min}°C</ThemedText>
-          <ThemedText className='font-semibold text-sm'>max {temp_max}°C</ThemedText>
+          <ThemedText className='font-semibold text-sm'>min {Math.round(temp_min)}{unitSymbol}</ThemedText>
+          <ThemedText className='font-semibold text-sm'>max {Math.round(temp_max)}{unitSymbol}</ThemedText>
         </View>
       </View>
       </View>

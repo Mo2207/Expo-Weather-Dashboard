@@ -2,9 +2,9 @@
 import { View, Image } from 'react-native';
 import ThemedText from './themedText';
 import { useTheme } from '../context/themeContext';
+import { useUnit } from '../context/unitContext';
 
 type ForecastProps = {
-  name: string;
   day: string;
   date: string;
   icon: string;
@@ -14,8 +14,10 @@ type ForecastProps = {
   snow?: number | null;
 }
 
-export default function ForecastCard({ name, day, date, icon, temp, description, rain, snow }: ForecastProps) {
+export default function ForecastCard({ day, date, icon, temp, description, rain, snow }: ForecastProps) {
   const { colors } = useTheme();
+  const { unit } = useUnit();
+  const unitSymbol = unit === 'metric' ? '°C' : '°F';
 
   return (
     <View
@@ -30,7 +32,7 @@ export default function ForecastCard({ name, day, date, icon, temp, description,
 
         {/* temperature and precipitation */}
         <View className='flex flex-col gap-4 items-center h-12'>
-          <ThemedText className='font-semibold text-lg'>🌡️ {temp}°C </ThemedText>
+          <ThemedText className='font-semibold text-lg'>🌡️ {temp}{unitSymbol} </ThemedText>
           <View>
             {rain && (
               <ThemedText className="font-semibold text-lg">

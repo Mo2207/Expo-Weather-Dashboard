@@ -1,6 +1,7 @@
 import React from 'react';
 import { Drawer } from 'expo-router/drawer';
 import { ThemeProvider, useTheme } from '../../context/themeContext';
+import { UnitProvider } from '../../context/unitContext';
 
 function DrawerLayout() {
   const { colors } = useTheme();
@@ -51,7 +52,9 @@ function DrawerLayout() {
 export default function ThemedDrawerLayout() {
   return (
     <ThemeProvider>
-      <DrawerLayout />
+      <UnitProvider>
+        <DrawerLayout />
+      </UnitProvider>
     </ThemeProvider>
   );
 }

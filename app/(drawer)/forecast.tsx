@@ -8,12 +8,14 @@ import ForecastCard from '../../components/forecastCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from 'expo-router';
 import { useTheme } from '../../context/themeContext';
+import { useUnit } from '@/context/unitContext';
 
 export default function FiveDayForecast() {
   const { colors } = useTheme();
   const { location, errorMsg } = useLocation();
   const [forecast, setForecast] = useState<any>(null);
   const navigation = useNavigation();
+  const { unit } = useUnit(); 
 
   // change menu title dynamically
   useLayoutEffect(() => {
@@ -30,12 +32,12 @@ export default function FiveDayForecast() {
 
     const { latitude, longitude } = location.coords;
 
-    getForecast(latitude, longitude)
+    getForecast(latitude, longitude, unit)
       .then(
         setForecast
       )
       .catch((err) => console.log('❌ Failed to set forecast:', err));
-  }, [location]) // run whenever location changes
+  }, [location, unit]) // run whenever location or unit changes
 
   return (
     <ImageBackground
@@ -62,7 +64,6 @@ export default function FiveDayForecast() {
                 {forecast.forecast.map((day: any, i: number) => (
                   <ForecastCard
                     key={i}
-                    name={forecast.name}
                     day={day.day}
                     date={day.date}
                     temp={day.temp}
@@ -74,14 +75,14 @@ export default function FiveDayForecast() {
                 ))}
             </ScrollView>
           ) : (
-            <ThemedText>Loading forecast...</ThemedText>
+            <ThemedText>Loading...</ThemedText>
           )
         ) : (
                 !errorMsg && 
                 <View className="flex flex-col">
                   <ActivityIndicator size="large" color={colors.text} />
                   <ThemedText className="font-bold text-xl animate-pulse mt-4">
-                    Fetching weather data...
+                    Fetching 5 Day Forecast...
                   </ThemedText>
                 </View>
               )}

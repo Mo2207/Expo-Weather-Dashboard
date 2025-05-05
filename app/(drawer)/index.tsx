@@ -1,6 +1,5 @@
 
 import "../../global.css"
-import { StyleSheet } from 'react-native';
 import { View, ActivityIndicator } from 'react-native';
 import { useLocation } from '../../hooks/useLocation';
 import { getWeather } from '../../utils/getWeather';
@@ -9,23 +8,25 @@ import { useState, useEffect } from 'react';
 import { ImageBackground } from "react-native";
 import ThemedText from "../../components/themedText";
 import { useTheme } from "../../context/themeContext";
+import { useUnit } from "@/context/unitContext";
 
 export default function Home() {
   const { colors } = useTheme()
   const { location, errorMsg } = useLocation();
   const [weather, setWeather] = useState<any>(null);
+  const { unit } = useUnit(); 
 
   useEffect(() => {
     if (!location) return;
 
     const { latitude, longitude } = location.coords; // grab variables from expo location
 
-    getWeather(latitude, longitude) // hand expo location coords to getWeather()
+    getWeather(latitude, longitude, unit) // hand expo location coords to getWeather()
       .then(
         setWeather
       ) // getWeather() returns weather data, now store it in state
       .catch((err) => console.log('❌ Failed to set weather:', err));
-  }, [location]) // useEffect runs whenever location changes
+  }, [location, unit]) // useEffect runs whenever location or unit changes
 
   return (
     <ImageBackground
@@ -47,20 +48,19 @@ export default function Home() {
               icon={weather.icon}
               description={weather.description}
               temp={weather.temp}
-              humidity={weather.humidity}
               temp_min={weather.temp_min}
               temp_max={weather.temp_max}
               rain={weather.rain}
               snow={weather.snow}
             />
           ) : (
-            <ThemedText>Loading weather...</ThemedText>
+            <ThemedText>Loading...</ThemedText>
           )
         ) : (
           !errorMsg && <View className="flex flex-col">
             <ActivityIndicator size="large" color={colors.text} />
             <ThemedText className="font-bold text-xl animate-pulse mt-4">
-              Fetching weather data...
+              Fetching Current Forecast...
             </ThemedText>
           </View>
         )}

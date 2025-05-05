@@ -3,9 +3,11 @@ import { View, ImageBackground } from 'react-native';
 import { useTheme } from '../../context/themeContext';
 import ThemedText from '../../components/themedText';
 import ThemedSwitch from '../../components/themedSwitch';
+import { useUnit } from '../../context/unitContext';
 
 export default function Settings() {
   const { theme, toggleTheme, colors } = useTheme();
+  const { unit, toggleUnit } = useUnit();
 
   return (
     <ImageBackground
@@ -21,15 +23,28 @@ export default function Settings() {
             Settings
           </ThemedText>
 
-          {/* dark/light mode settings */}
+          {/* dark/light mode setting */}
           <View className='flex flex-row items-center'>
             <ThemedText>
               {theme.charAt(0).toUpperCase() + theme.slice(1)} Mode
             </ThemedText>
             <ThemedSwitch
+              value={theme === 'dark'}
               onToggle={toggleTheme}
             />
           </View>
+
+          {/* temperature unit setting */}
+          <View className='flex flex-row items-center'>
+            <ThemedText>
+              {unit.charAt(0).toUpperCase() + unit.slice(1)}
+            </ThemedText>
+            <ThemedSwitch
+              value={unit === 'imperial'}
+              onToggle={toggleUnit}
+            />
+          </View>
+
         </View>
 
       </View>

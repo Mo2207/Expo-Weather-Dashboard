@@ -16,7 +16,7 @@ A few years ago, I made a [weather dashboard](https://github.com/Mo2207/Weather-
 ## 🚀 Features
 
 - 📍 Fetches your current location using `expo-location`
-- 🌦️ Displays:
+- 🌦️ **Displays**:
   - Temperature
   - Weather condition icon + description
   - Rain/snow (if any)
@@ -28,6 +28,10 @@ A few years ago, I made a [weather dashboard](https://github.com/Mo2207/Weather-
   - Easily switch between light and dark themes
   - Dynamically updates background, text, and card colors based on the selected theme
   - Theme state is globally managed with React Context for a consistent experience across screens
+- ⚖️ **Unit Toggle (Metric / Imperial)**
+  - Switch between Celsius & Fahrenheit for temperature
+  - Updates API calls based on selected unit
+  - Unit state managed globally via React Context for consistency across the app
 - 🎨 Clean, mobile-friendly UI with Tailwind + NativeWind
 - ⚙️ Fully written in TypeScript
 
